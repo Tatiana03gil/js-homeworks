@@ -45,19 +45,21 @@ maxNumber(num1, num2, num3);*/
 //Задание 4
 
 /*const sum = (num1, num2) => {
-    return num1+num2;
-}
+  return num1 + num2;
+};
 
 const minus = (num1, num2) => {
-    return num1-num2;
-}
+  if (num1 > num2) {
+    return num1 - num2;
+  } else return num2 - num1;
+};
 
 const multiply = (num1, num2) => {
-    return num1*num2;
-}
+  return num1 * num2;
+};
 
 const divide = (num1, num2) => {
-    return num1/num2;
-}
+  return num1 / num2;
+};
 
-console.log(sum(2, 6));*/
+console.log(minus(2, 6));*/
