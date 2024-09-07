@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="content"></div>
+    <script src="data.js"></script>
+    <script>
+      const data = JSON.parse(dataBase);
+      const content = document.querySelector(".content");
+      data.forEach((element) => {
+        const character = document.createElement("div");
+        character.classList.add('character');
+
+        const h2El = document.createElement("h2");
+        h2El.classList.add("name");
+        h2El.textContent = element.name;
+
+        const imgEl = document.createElement("img");
+        imgEl.classList.add("photo");
+        imgEl.src = element.image;
+
+        const pEl = document.createElement("p");
+        pEl.classList.add("actor");
+        pEl.textContent = element.actor;
+
+        content.appendChild(character);
+        character.appendChild(h2El);
+        character.appendChild(imgEl);
+        character.appendChild(pEl);
+      });
+    </script>
+  </body>
+</html>
