@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Featured Items</title>
+  </head>
+  <body>
+    <div class="featuredItems">
+      <h2 class="title">Fetured Items</h2>
+      <p class="describtion">
+        Shop for items based on what we featured in this week
+      </p>
+      <div class="products"></div>
+    </div>
+    <script src="items.js"></script>
+    <script>
+      const itemsEls = JSON.parse(items);
+      const productsEl = document.querySelector(".products");
+
+      itemsEls.forEach((element) => {
+        const itemBox = document.createElement("div");
+        itemBox.classList.add("box");
+
+        const itemImg = document.createElement("img");
+        itemImg.classList.add("img");
+        itemImg.src = element.link;
+
+        const itemTextContent = document.createElement("div");
+        itemTextContent.classList.add("textContent");
+        const titleEl = document.createElement("h2");
+        titleEl.classList.add("name");
+        titleEl.textContent = element.name;
+
+        const aboutEl = document.createElement("p");
+        aboutEl.classList.add("about");
+        aboutEl.textContent = element.describtion;
+
+        const priceEl = document.createElement("p");
+        priceEl.classList.add("price");
+        priceEl.textContent = element.price;
+
+        productsEl.appendChild(itemBox);
+        itemBox.appendChild(itemImg);
+        itemTextContent.appendChild(titleEl);
+        itemTextContent.appendChild(aboutEl);
+        itemTextContent.appendChild(priceEl);
+        itemBox.appendChild(itemTextContent);
+      });
+    </script>
+  </body>
+</html>
