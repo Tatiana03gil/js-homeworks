@@ -531,6 +531,14 @@
               cartItem.appendChild(cartDescribtionBox);
   
               cartBoxEl.appendChild(cartItem);
+
+              crossSign.addEventListener("click", (event) => {
+                cartItem.remove();
+                counter = 0;
+                if(cartBoxEl.childElementCount === 0) {
+                  cartEl.style.display = "none";
+                };
+          })             
             } else {
               counter++;
               const cartBoxEl = document.querySelector(".cartBox");
@@ -539,9 +547,7 @@
               );
               const inputEl = document.querySelector(".input");
               inputEl.placeholder = counter;
-            }
-          });
-        });
+          }})})
       </script>
     </main>
   </body>
