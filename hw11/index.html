@@ -15,6 +15,10 @@
       </p>
       <div class="products"></div>
     </div>
+    <div class="cart">
+      <h3 class="cartTitle">Cart Items</h3>
+      <div class="cartBox"></div>
+    </div>
     <script src="items.js"></script>
     <script>
       const itemsEls = JSON.parse(items);
@@ -23,10 +27,18 @@
       itemsEls.forEach((element) => {
         const itemBox = document.createElement("div");
         itemBox.classList.add("box");
+        itemBox.setAttribute("id", element.id);
+
+        const imgBox = document.createElement("div");
+        imgBox.classList.add("img-box");
 
         const itemImg = document.createElement("img");
         itemImg.classList.add("img");
         itemImg.src = element.link;
+
+        const cartButton = document.createElement("button");
+        cartButton.classList.add("item__button");
+        cartButton.textContent = "Add to Cart";
 
         const itemTextContent = document.createElement("div");
         itemTextContent.classList.add("textContent");
@@ -43,11 +55,108 @@
         priceEl.textContent = element.price;
 
         productsEl.appendChild(itemBox);
-        itemBox.appendChild(itemImg);
+        itemBox.appendChild(imgBox);
+        imgBox.appendChild(itemImg);
+        imgBox.appendChild(cartButton);
         itemTextContent.appendChild(titleEl);
         itemTextContent.appendChild(aboutEl);
         itemTextContent.appendChild(priceEl);
         itemBox.appendChild(itemTextContent);
+      });
+    </script>
+    <script>
+      const cartButtonsEls = document.querySelectorAll(".item__button");
+      const cartEl = document.querySelector(".cart");
+      const cartBoxEl = document.querySelector(".cartBox");
+
+      cartButtonsEls.forEach((element) => {
+        let counter = 0;
+        element.addEventListener("click", (event) => {
+          cartEl.style.display = "flex";
+
+          if (counter === 0) {
+            counter++;
+            const cartItem = document.createElement("div");
+            cartItem.classList.add("cart-item");
+            cartItem.setAttribute("id", element.parentNode.parentNode.id);
+
+            const itemImg = document.createElement("img");
+            itemImg.classList.add("cart-item-img");
+            const elementImgEl = element.parentNode.children[0];
+            itemImg.src = elementImgEl.src;
+
+            const cartDescribtionBox = document.createElement("div");
+            cartDescribtionBox.classList.add("cart__describtion");
+
+            const cartItemTopEl = document.createElement("div");
+            cartItemTopEl.classList.add("cart__item__top");
+
+            const h1El = document.createElement("h1");
+            h1El.classList.add("cart__item-name");
+            h1El.textContent =
+              element.parentNode.nextSibling.firstChild.textContent;
+
+            const crossSign = document.createElement("img");
+            crossSign.classList.add("cart__item-close");
+            crossSign.src = "./img/Vector.svg";
+
+            cartItemTopEl.appendChild(h1El);
+            cartItemTopEl.appendChild(crossSign);
+
+            const detailsEl = document.createElement("div");
+            detailsEl.classList.add("cart__details");
+
+            const price = document.createElement("p");
+            price.classList.add("detail");
+            price.textContent = "Price: ";
+            const priceSpan = document.createElement("span");
+            priceSpan.classList.add("accent");
+            priceSpan.textContent =
+              element.parentNode.nextSibling.children[2].textContent;
+            price.appendChild(priceSpan);
+
+            const colorEl = document.createElement("p");
+            colorEl.classList.add("detail");
+            colorEl.textContent = "Color: Red";
+
+            const size = document.createElement("p");
+            size.classList.add("detail");
+            size.textContent = "Size: Xl";
+
+            const quanity = document.createElement("div");
+            quanity.classList.add("quanity");
+            const quanityText = document.createElement("p");
+            quanityText.classList.add("detail");
+            quanityText.textContent = "Quantity:";
+            quanity.appendChild(quanityText);
+            const inputCount = document.createElement("input");
+            inputCount.classList.add("input");
+            inputCount.setAttribute("type", "text");
+            inputCount.setAttribute("placeholder", "1");
+            quanity.appendChild(inputCount);
+
+            detailsEl.appendChild(price);
+            detailsEl.appendChild(colorEl);
+            detailsEl.appendChild(size);
+            detailsEl.appendChild(quanity);
+
+            cartDescribtionBox.appendChild(cartItemTopEl);
+            cartDescribtionBox.appendChild(detailsEl);
+
+            cartItem.appendChild(itemImg);
+            cartItem.appendChild(cartDescribtionBox);
+
+            cartBoxEl.appendChild(cartItem);
+          } else {
+            counter++;
+            const cartBoxEl = document.querySelector(".cartBox");
+            const itemEl = cartBoxEl.querySelector(
+              `[id="${element.parentNode.parentNode.id}"]`
+            );
+            const inputEl = itemEl.querySelector(".input");
+            inputEl.placeholder = counter;
+          }
+        });
       });
     </script>
   </body>
